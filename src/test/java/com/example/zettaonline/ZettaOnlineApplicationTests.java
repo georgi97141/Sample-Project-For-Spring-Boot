@@ -71,14 +71,6 @@ class ZettaOnlineApplicationTests {
     }
 
     @Test
-    void executeRules() {
-        loadData();
-        //irrelevant test since we have db connector there
-        ExecutionRequest executionRequest= new ExecutionRequest(1,"name2",100,200);
-        assertEquals("SELECT * FROM users WHERE age > 100 AND age < 200;",ruleSetService.executeRule(executionRequest));
-    }
-
-    @Test
     void executeRulesNonExisting() {
         loadData();
         ExecutionRequest executionRequest= new ExecutionRequest(0,"none",100,200);
