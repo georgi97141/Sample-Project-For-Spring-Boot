@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DataBaseConnector {
+public class DataBaseConnector implements DataBaseConnectorInterface {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public String execQuery(String sql) {
         try {
             Query query = entityManager.createNativeQuery(sql);
@@ -29,7 +30,7 @@ public class DataBaseConnector {
             }
             return stringBuilder.toString();
         } catch (Exception e) {
-            throw new RuntimeException("An unexpected error occurred", e);
+            throw new RuntimeException("An unexpected error occurred");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.example.zettaonline.restapi.service;
 
+import com.example.zettaonline.restapi.dbconnector.DataBaseConnectorInterface;
 import com.example.zettaonline.restapi.model.ExecutionRequest;
-import com.example.zettaonline.restapi.dbconnector.DataBaseConnector;
 import com.example.zettaonline.restapi.model.Rule;
 import com.example.zettaonline.restapi.model.RuleSetModel;
 import com.example.zettaonline.restapi.sqlchecker.SQLChecker;
@@ -17,7 +17,7 @@ public class RuleSetService {
     private AtomicInteger idCounter;
     public static final String NO_SUCH_RULE = "NO_SUCH_RULE";
     @Autowired
-    private DataBaseConnector dataBaseConnector;
+    private DataBaseConnectorInterface dataBaseConnector;
 
     public RuleSetService() {
         this.ruleSetModelSet = new HashSet<>();
@@ -90,7 +90,6 @@ public class RuleSetService {
                 .findFirst();
         return optionalRuleSetModel.isPresent() ? true : false;
     }
-
     public String executeRule(ExecutionRequest executionRequest) {
         for (RuleSetModel ruleSetModel : ruleSetModelSet) {
             for (Rule rule : ruleSetModel.getRules()) {

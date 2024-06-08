@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,7 +29,8 @@ import org.springframework.test.annotation.DirtiesContext;
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class IntegrationTest {
+@ActiveProfiles("test")
+public class  IntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -128,9 +130,9 @@ public class IntegrationTest {
         assertEquals(expectedJson,objectMapper.readTree(result.getResponse().getContentAsString()));
 
     }
-
     @Test
     public void executeRules() throws Exception {
+        // a bit of bad practice because we make a connection to DB. maybe we need to rollback from db or a flag;
         String str= objectMapper.writeValueAsString(ruleSet);
         ExecutionRequest executionRequest = new ExecutionRequest(1,"rule1",12,23);
         List<ExecutionRequest> executionRequestList = Arrays.asList(executionRequest);
