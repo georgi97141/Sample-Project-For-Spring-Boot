@@ -8,6 +8,8 @@ TODO: add Jakarta Entities, add JavaDoc,  save the rules in DB, create a table f
 Doing some updates,added entities and saving rules to the DB, still unstable but you can check code that is working, no integration or unittest but I confirmed it works.
 Link to the repo where the updates happen:
 https://github.com/georgi97141/MockRepo
+
+
 Note:should have created a new branch but I got confused a bit and wasn't sure if it would be visible to non-project collaborators, since I was working recently with SVN.
 Note: 
 There I added new tables there:
