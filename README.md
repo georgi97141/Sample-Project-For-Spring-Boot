@@ -11,6 +11,8 @@ https://github.com/georgi97141/MockRepo
 
 
 Note:should have created a new branch but I got confused a bit and wasn't sure if it would be visible to non-project collaborators, since I was working recently with SVN.
+
+
 Note: 
 There I added new tables there:
 -- Table: public.rules
