@@ -63,7 +63,8 @@ public class RuleSetService {
         if (ruleSetModel != null) {
             ruleSetModel.setId(id);
             ruleSetModel.setSetName(toBeChanged.getSetName());
-            ruleSetModel.setRules(toBeChanged.getRules());
+            ruleSetModel.getRules().clear();
+            ruleSetModel.getRules().addAll(toBeChanged.getRules());
             dataBaseConnector.save(ruleSetModel);
             return true;
         }
