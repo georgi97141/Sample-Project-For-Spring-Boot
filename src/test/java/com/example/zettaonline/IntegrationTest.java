@@ -3,11 +3,7 @@ package com.example.zettaonline;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.example.zettaonline.restapi.model.ExecutionRequest;
-import com.example.zettaonline.restapi.model.ComplexRule;
-import com.example.zettaonline.restapi.model.Rule;
-import com.example.zettaonline.restapi.model.RuleSetModel;
-import com.example.zettaonline.restapi.model.SimpleRule;
+import com.example.zettaonline.restapi.model.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +44,7 @@ public class IntegrationTest {
         ruleSet.setId(0);
         ruleSet.setSetName("ExampleRuleSet");
 
-        Set<Rule> rules = new HashSet<>();
+        Set<AbstractRule> rules = new HashSet<>();
         rules.add(new SimpleRule(1, "rule1", "age"));
         rules.add(new ComplexRule(0, "crule1", "admin", "age"));
 
@@ -66,7 +62,7 @@ public class IntegrationTest {
         newRuleSet.setId(0);
         newRuleSet.setSetName("ExampleRuleSet");
 
-        Set<Rule> rules = new HashSet<>();
+        Set<AbstractRule> rules = new HashSet<>();
         rules.add(new SimpleRule(1, "rule1", "salary"));
         rules.add(new ComplexRule(1, "crule1", "admin", "salary"));
         newRuleSet.setRules(rules);

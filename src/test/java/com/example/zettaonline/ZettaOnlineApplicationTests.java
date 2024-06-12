@@ -1,10 +1,6 @@
 package com.example.zettaonline;
 
-import com.example.zettaonline.restapi.model.ExecutionRequest;
-import com.example.zettaonline.restapi.model.ComplexRule;
-import com.example.zettaonline.restapi.model.Rule;
-import com.example.zettaonline.restapi.model.RuleSetModel;
-import com.example.zettaonline.restapi.model.SimpleRule;
+import com.example.zettaonline.restapi.model.*;
 import com.example.zettaonline.restapi.service.RuleSetService;
 import org.junit.jupiter.api.Test;
 
@@ -22,9 +18,9 @@ class ZettaOnlineApplicationTests {
         ruleSetService = new RuleSetService();
         model = new RuleSetModel();
         model.setSetName("model1");
-        Rule rule = new ComplexRule(0, "name1", "admin", "salary");
-        Rule rule2 = new SimpleRule(1, "name2", "age");
-        Set<Rule> rules = new HashSet<>();
+        AbstractRule rule = new ComplexRule(0, "name1", "admin", "salary");
+        AbstractRule rule2 = new SimpleRule(1, "name2", "age");
+        Set<AbstractRule> rules = new HashSet<>();
         rules.add(rule);
         rules.add(rule2);
         model.setRules(rules);
