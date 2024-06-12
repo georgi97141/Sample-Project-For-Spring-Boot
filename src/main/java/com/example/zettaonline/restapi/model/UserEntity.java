@@ -55,11 +55,11 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", age=" + age +
-                ", salary=" + salary +
-                ", nationality='" + nationality + '\'' +
+        return "{" +
+                "id:" + id +
+                ", age:" + age +
+                ", salary:" + salary +
+                ", nationality:'" + nationality + '\'' +
                 '}';
     }
 }

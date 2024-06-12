@@ -74,6 +74,8 @@ public class RuleSetService {
     // POST /rules:
     @Transactional
     public boolean addRuleSetModel(RuleSetModel toBeAdded) {
+        ruleSetModelSet =getRuleSetModelSet();
+
         boolean ruleSetPresent = isRuleSetPresent(toBeAdded);
         for (AbstractRule r : toBeAdded.getRules()) {
             r.setRuleSet(toBeAdded);
@@ -101,7 +103,9 @@ public class RuleSetService {
         ruleSetModelSet= dataBaseConnector.findAll();
         Optional<RuleSetModel> optionalRuleSetModel = ruleSetModelSet
                 .stream()
-                .filter(ruleSetModel -> ruleSetModel.equals(model))
+                .filter(ruleSetModel -> ruleSetModel.getSetName().equals(model.getSetName())
+                        || model.getRules().stream().anyMatch(r -> ruleSetModel.getRules().contains(r))
+                        || ruleSetModelSet.equals(model))
                 .findFirst();
         return optionalRuleSetModel.isPresent() ? true : false;
 
