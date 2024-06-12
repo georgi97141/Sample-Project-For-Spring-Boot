@@ -1,25 +1,32 @@
 package com.example.zettaonline.restapi.model;
 
+import jakarta.persistence.*;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.io.Serializable;
-
+@Entity
+@Table(name = "rulesetmodel", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "setName"))
 public class RuleSetModel implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "setName")// naming strategy is stupid and changes this to snakecase rather to all lowercase
     private String setName;
-    private Set<Rule> rules = new HashSet<>();
+    @OneToMany(mappedBy = "ispartof", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AbstractRule> rules = new HashSet<>();
 
     public RuleSetModel() {
     }
 
-    public Set<Rule> getRules() {
+    public Set<AbstractRule> getRules() {
         return rules;
     }
 
-    public void setRules(Set<Rule> rules) {
+    public void setRules(Set<AbstractRule> rules) {
         this.rules = rules;
     }
 

@@ -1,17 +1,22 @@
 package com.example.zettaonline.restapi.model;
 
 
-import java.io.Serializable;
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
-
-public class SimpleRule implements Rule, Serializable {
+@Entity
+@DiscriminatorValue("simple")
+public class SimpleRule extends AbstractRule {
     private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String name;
-    private String field;
 
+    @Column(name = "name" , unique = true, nullable = false)
+    private String name;
+    @Column(name = "field", nullable = false)
+    private String field;
+    public SimpleRule() {
+    }
     public SimpleRule(int id, String name, String field) {
         this.id = id;
         this.name = name;
@@ -23,12 +28,12 @@ public class SimpleRule implements Rule, Serializable {
     public String execute(int parameter1, int parameter2) {
         // we have sql table
         // make it return query rather than STRING? Maybe
-        return "SELECT * FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + ";";
+        return "SELECT u FROM UserEntity u WHERE u." + field + " > "+parameter1+" AND u." + field + " < " +parameter2;
     }
 
     @Override
     public boolean matches(Integer id, String name) {
-        return this.id == id && this.name.equals(name);
+        return  this.name.equals(name);
     }
 
     @Override
@@ -71,4 +76,5 @@ public class SimpleRule implements Rule, Serializable {
     public int hashCode() {
         return Objects.hash(name, field);
     }
+
 }

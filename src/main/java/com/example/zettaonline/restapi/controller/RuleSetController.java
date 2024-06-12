@@ -22,61 +22,62 @@ public class RuleSetController {
     private final String RULESET_DELETED = "Ruleset successfully deleted";
     private final String RULESET_UPDATED = "Ruleset successfully updated";
     private final String RULESET_ALREADY_EXISTS = "Ruleset Already Exists";
+    private final String REQUEST_SUCCESFUL = "Request Succesful";
 
     @PostMapping("/rules")
-    public ResponseEntity<String> createRuleSet(@RequestBody RuleSetModel ruleSet) {
+    public ResponseEntity<Response> createRuleSet(@RequestBody RuleSetModel ruleSet) {
         boolean createdRuleSet = ruleSetService.addRuleSetModel(ruleSet);
         return createdRuleSet ?
-                new ResponseEntity<>(RULESET_CREATED, HttpStatus.CREATED) :
-                new ResponseEntity<>(RULESET_ALREADY_EXISTS, HttpStatus.CONFLICT);
+                new ResponseEntity<>(new Response<>(true,RULESET_CREATED,ruleSet), HttpStatus.CREATED) :
+                new ResponseEntity<>(new Response<>(false,RULESET_ALREADY_EXISTS,null) , HttpStatus.CONFLICT);
     }
 
     @GetMapping("/rules")
-    public ResponseEntity<Set<RuleSetModel>> getAllRuleSets() {
+    public ResponseEntity<Response> getAllRuleSets() {
         Set<RuleSetModel> ruleSets = ruleSetService.getRuleSetModelSet();
-        return new ResponseEntity<>(ruleSets, HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(true,REQUEST_SUCCESFUL,ruleSets), HttpStatus.OK);
     }
 
     @GetMapping("/rules/{id}")
-    public ResponseEntity<RuleSetModel> getRuleSetById(@PathVariable Integer id) {
+    public ResponseEntity<Response> getRuleSetById(@PathVariable Integer id) {
         RuleSetModel ruleSet = ruleSetService.getRuleSetModelByID(id);
         return ruleSet != null ?
-                new ResponseEntity<>(ruleSet, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                new ResponseEntity<>(new Response<>(true, REQUEST_SUCCESFUL,ruleSet), HttpStatus.OK) :
+                new ResponseEntity<>(new Response<>(false,RULESET_NOT_FOUND,null),HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/rules/{id}")
-    public ResponseEntity<String> updateRuleSet(@PathVariable Integer id,@RequestBody RuleSetModel updatedRuleSet) {
+    public ResponseEntity<Response> updateRuleSet(@PathVariable Integer id,@RequestBody RuleSetModel updatedRuleSet) {
         boolean updated = ruleSetService.changeRuleset(id,updatedRuleSet);
 
         return updated ?
-                new ResponseEntity<>(RULESET_UPDATED, HttpStatus.OK) :
-                new ResponseEntity<>(RULESET_NOT_FOUND, HttpStatus.NOT_FOUND);
+                new ResponseEntity<>(new Response<>(true,RULESET_UPDATED,updated), HttpStatus.OK) :
+                new ResponseEntity<>(new Response<>(false,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/rules/{id}")
-    public ResponseEntity<String> deleteRuleSet(@PathVariable Integer id) {
+    public ResponseEntity<Response> deleteRuleSet(@PathVariable Integer id) {
         boolean deleted = ruleSetService.removeRuleSetModelByID(id);
         return deleted ?
-                new ResponseEntity<>(RULESET_DELETED, HttpStatus.OK)
-                : new ResponseEntity<>(RULESET_NOT_FOUND, HttpStatus.NOT_FOUND);
+                new ResponseEntity<>(new Response<>(true,RULESET_DELETED,null), HttpStatus.OK)
+                : new ResponseEntity<>(new Response<>(true,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/execute")
-    public ResponseEntity<String> executeRules(@RequestBody List<ExecutionRequest> requests) {
+    public ResponseEntity<Response> executeRules(@RequestBody List<ExecutionRequest> requests) {
         StringBuilder stringBuilder = new StringBuilder();
         for (ExecutionRequest request : requests) {
             stringBuilder.append("ruleID:" + request.getRuleID()+"\n");
             stringBuilder.append("ruleName:" + request.getRuleName()+"\n");
             String ruleExecuted = ruleSetService.executeRule(request);
             if (ruleExecuted.equals(RuleSetService.NO_SUCH_RULE)) {
-                return new ResponseEntity<>(RULESET_NOT_FOUND, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(new Response<>(false,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
             }
             stringBuilder.append("Result of the execution:" + request.getRuleName()+"\n");
             stringBuilder.append(ruleExecuted+"\n");
 
         }
-        return new ResponseEntity<>(stringBuilder.toString(), HttpStatus.OK);
+        return new ResponseEntity<>(new Response<>(true,REQUEST_SUCCESFUL,stringBuilder.toString()), HttpStatus.OK);
     }
 
 }

@@ -1,14 +1,20 @@
 package com.example.zettaonline.restapi.model;
 
-import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
 import java.util.Objects;
+@Entity
 
-public abstract class AbstractDeleteRule implements Rule, Serializable {
-    private static final long serialVersionUID = 1L;
-    private int id;
+public abstract class AbstractDeleteRule extends AbstractRule {
+
+    @Column(name = "name" , unique = true, nullable = false)
     private String name;
+    @Column(name = "field", nullable = false)
     private String field;
-
+    public AbstractDeleteRule() {
+    }
     public AbstractDeleteRule(int id, String name, String field) {
         this.id = id;
         this.name = name;
@@ -49,7 +55,9 @@ public abstract class AbstractDeleteRule implements Rule, Serializable {
     public String execute(int parameter1, int parameter2) {
         // we have sql table
         // return query, not string
-        return "DELETE FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + ";";
+        return "DELETE FROM UserEntity u WHERE u." + field + " > :param1 AND u." + field + " < :param2";
+
+        //return "DELETE FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + ";";
     }
 
     @Override
@@ -69,4 +77,14 @@ public abstract class AbstractDeleteRule implements Rule, Serializable {
         return Objects.hash(name, field);
     }
 
+    @Override
+    @JsonIgnore
+    public RuleSetModel getRuleSet() {
+        return ispartof;
+    }
+
+    @Override
+    public void setRuleSet(RuleSetModel ruleSet) {
+        this.ispartof=ruleSet;
+    }
 }

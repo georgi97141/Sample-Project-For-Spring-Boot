@@ -2,6 +2,7 @@ package com.example.zettaonline.restapi.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.Entity;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -13,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = ComplexRule.class, name = "complex"),
         @JsonSubTypes.Type(value = AgeDeleteRule.class, name = "ageDelete")
 })
-
 public interface Rule {
     String execute(int parameter1, int parameter2);
 
@@ -30,4 +30,8 @@ public interface Rule {
     int getId();
 
     void setId(int id);
+
+    RuleSetModel getRuleSet();
+
+    void setRuleSet(RuleSetModel ruleSet);
 }

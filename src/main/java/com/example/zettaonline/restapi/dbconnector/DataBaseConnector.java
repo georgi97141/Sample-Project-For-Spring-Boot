@@ -1,11 +1,14 @@
 package com.example.zettaonline.restapi.dbconnector;
 
+import com.example.zettaonline.restapi.model.RuleSetModel;
+import com.example.zettaonline.restapi.model.UserEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Repository
 public class DataBaseConnector implements DataBaseConnectorInterface {
@@ -13,24 +16,40 @@ public class DataBaseConnector implements DataBaseConnectorInterface {
     private EntityManager entityManager;
 
     @Override
-    public String execQuery(String sql) {
+    public String execQuery(String quary) {
         try {
-            Query query = entityManager.createNativeQuery(sql);
+            TypedQuery<UserEntity> query = entityManager.createQuery(quary, UserEntity.class);
             // rather use JDBC or create entities, that is a bit of a bad practice :/
-            StringBuilder stringBuilder = new StringBuilder();
-            List<Object[]> resultList = query.getResultList();
-            String[] columns = {"id","age","nationality","salary"};
-            //maybe we need to check here for Nulls or different formatted data but this is just a demo :)
-            for (Object[] row : resultList) {
-                int rowCounter = 0;
-                for (Object obj : row) {
-                    stringBuilder.append(columns[rowCounter] + ":" + obj.toString() + "\n");
-                    rowCounter++;
-                }
-            }
-            return stringBuilder.toString();
+            return query.getResultList().toString();
         } catch (Exception e) {
-            throw new RuntimeException("An unexpected error occurred");
+            throw   new RuntimeException("An unexpected error occurred");
         }
+    }
+
+    @Override
+    public void save(RuleSetModel r) {
+        entityManager.merge(r);
+    }
+
+    @Override
+    public RuleSetModel findById(Integer id) {
+        return entityManager.find(RuleSetModel.class, id);
+    }
+
+    @Override
+    public Set<RuleSetModel> findAll() {
+        TypedQuery<RuleSetModel> query = entityManager.createQuery("SELECT r FROM RuleSetModel r", RuleSetModel.class);
+        return new HashSet<>(query.getResultList());
+
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        RuleSetModel ruleSetModel = findById(id);
+        if (ruleSetModel != null) {
+            entityManager.remove(ruleSetModel);
+            return true;
+        }
+        return false;
     }
 }

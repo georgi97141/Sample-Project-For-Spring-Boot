@@ -1,22 +1,28 @@
 package com.example.zettaonline.restapi.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
-public class ComplexRule implements Rule, Serializable {
+import java.util.Objects;
+@Entity
+@DiscriminatorValue("complex")
+public class ComplexRule extends AbstractRule {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+
+    @Column(name = "name" , unique = true, nullable = false)
     private String name;
+    @Column(name = "privileges")
     private String privileges;
     private String nationality;
+    @Column(name = "field", nullable = false)
     private String field;
-
+    public ComplexRule() {
+    }
     public ComplexRule(int id, String name, String privileges, String field) {
         this.id = id;
         this.name = name;
         this.privileges = privileges;
-        nationality = "'BG'";
+        this.nationality = "'BG'";
         this.field = field;
     }
 
@@ -24,8 +30,8 @@ public class ComplexRule implements Rule, Serializable {
     public String execute(int parameter1, int parameter2) {
         // no string but query return, would be proper
         if (privileges.equals("admin"))
-            return "SELECT * FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + " AND nationality= " + nationality + ";";
-        return "SELECT * FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + ";";
+                return "SELECT u FROM UserEntity u WHERE u." + field + " > "+parameter1+" AND u." + field + " < " +parameter2+" AND u.nationality ="+nationality;
+        return "SELECT u FROM UserEntity u WHERE u." + field + " > "+parameter1+" AND u." + field + " < " +parameter2;
     }
 
     @Override
@@ -90,4 +96,5 @@ public class ComplexRule implements Rule, Serializable {
     public int hashCode() {
         return Objects.hash(id, name, privileges, field);
     }
+
 }

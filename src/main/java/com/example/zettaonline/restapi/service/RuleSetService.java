@@ -1,12 +1,14 @@
 package com.example.zettaonline.restapi.service;
 
 import com.example.zettaonline.restapi.dbconnector.DataBaseConnectorInterface;
+import com.example.zettaonline.restapi.model.AbstractRule;
 import com.example.zettaonline.restapi.model.ExecutionRequest;
 import com.example.zettaonline.restapi.model.Rule;
 import com.example.zettaonline.restapi.model.RuleSetModel;
 import com.example.zettaonline.restapi.sqlchecker.SQLChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,35 +27,44 @@ public class RuleSetService {
     }
 
     //GET /rules:
+    @Transactional
     public Set<RuleSetModel> getRuleSetModelSet() {
-        return ruleSetModelSet;
+        return dataBaseConnector.findAll();
     }
 
     // GET /rules/{id}:
+    @Transactional
     public RuleSetModel getRuleSetModelByID(int id) {
-        Optional<RuleSetModel> optionalRuleSetModel = ruleSetModelSet
-                .stream()
-                .filter(ruleSetModel -> ruleSetModel.getId() == id)
-                .findFirst();
-        return optionalRuleSetModel.isPresent() ? optionalRuleSetModel.get() : null;
+//        Optional<RuleSetModel> optionalRuleSetModel = ruleSetModelSet
+//                .stream()
+//                .filter(ruleSetModel -> ruleSetModel.getId() == id)
+//                .findFirst();
+//
+//        return optionalRuleSetModel.isPresent() ? optionalRuleSetModel.get() : null;
+        return dataBaseConnector.findById(id);
     }
 
     //DELETE /rules/{id}:
+    @Transactional
     public boolean removeRuleSetModelByID(int id) {
         RuleSetModel ruleSetModel = getRuleSetModelByID(id);
         if (ruleSetModel == null) {
             return false;
         }
-        return ruleSetModelSet.remove(ruleSetModel);
+      //  return ruleSetModelSet.remove(ruleSetModel);
+        return dataBaseConnector.deleteById(id);
 
     }
 
     //PUT /rules/: // I changed it a bit
+    @Transactional
     public boolean changeRuleset(int id, RuleSetModel toBeChanged) {
         RuleSetModel ruleSetModel = getRuleSetModelByID(id);
         if (ruleSetModel != null) {
+            ruleSetModel.setId(id);
             ruleSetModel.setSetName(toBeChanged.getSetName());
             ruleSetModel.setRules(toBeChanged.getRules());
+            dataBaseConnector.save(ruleSetModel);
             return true;
         }
         return false;
@@ -61,9 +72,11 @@ public class RuleSetService {
     }
 
     // POST /rules:
+    @Transactional
     public boolean addRuleSetModel(RuleSetModel toBeAdded) {
         boolean ruleSetPresent = isRuleSetPresent(toBeAdded);
-        for (Rule r : toBeAdded.getRules()) {
+        for (AbstractRule r : toBeAdded.getRules()) {
+            r.setRuleSet(toBeAdded);
             String str = r.getField();
             if (SQLChecker.containsSQL(str)) {
                 // basic checker for SQL, we ofcourse need to find a better version
@@ -75,22 +88,26 @@ public class RuleSetService {
         if (!ruleSetPresent) {
             toBeAdded.setId(idCounter.getAndIncrement());
             ruleSetModelSet.add(toBeAdded);
+            dataBaseConnector.save(toBeAdded);
         }
         return !ruleSetPresent;
     }
-
+    @Transactional
     private boolean isRuleSetPresent(RuleSetModel model) {
         // .equals is defined to do the same as the code on last two rows of the comment, we don't compare ID
         // because it is irrelevant in this case.:)
         //ruleSetModel.getRules().equals(model.getRules()) ||
         //ruleSetModel.getSetName().equals(model.getSetName())
+        ruleSetModelSet= dataBaseConnector.findAll();
         Optional<RuleSetModel> optionalRuleSetModel = ruleSetModelSet
                 .stream()
                 .filter(ruleSetModel -> ruleSetModel.equals(model))
                 .findFirst();
         return optionalRuleSetModel.isPresent() ? true : false;
-    }
+
+    }@Transactional
     public String executeRule(ExecutionRequest executionRequest) {
+        ruleSetModelSet=getRuleSetModelSet();
         for (RuleSetModel ruleSetModel : ruleSetModelSet) {
             for (Rule rule : ruleSetModel.getRules()) {
                 if (rule.matches(executionRequest.getRuleID(), executionRequest.getRuleName())) {
