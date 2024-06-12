@@ -3,6 +3,7 @@ package com.example.zettaonline;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.example.zettaonline.restapi.controller.Response;
 import com.example.zettaonline.restapi.model.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -126,8 +129,8 @@ public class IntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(str)).andExpect(status().is(200)).andReturn();
         JsonNode expectedJson = objectMapper.readTree(str);
-
-        assertEquals(expectedJson, objectMapper.readTree(result.getResponse().getContentAsString()));
+        ResponseEntity rs=  new ResponseEntity(new Response<>(true,"Request Succesful",expectedJson), HttpStatus.OK);
+        assertEquals(rs.getBody().toString(), objectMapper.readTree(result.getResponse().getContentAsString()).toString());
 
     }
 

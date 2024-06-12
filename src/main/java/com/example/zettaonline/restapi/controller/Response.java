@@ -34,4 +34,12 @@ public class Response <T> {
         this.message = message;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "\"success\":" + success +
+                ",\"message\":\"" + message + '\"' +
+                ",\"data\":" + data.toString() +
+                '}';
+    }
 }
