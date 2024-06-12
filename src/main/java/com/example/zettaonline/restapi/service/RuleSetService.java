@@ -35,12 +35,6 @@ public class RuleSetService {
     // GET /rules/{id}:
     @Transactional
     public RuleSetModel getRuleSetModelByID(int id) {
-//        Optional<RuleSetModel> optionalRuleSetModel = ruleSetModelSet
-//                .stream()
-//                .filter(ruleSetModel -> ruleSetModel.getId() == id)
-//                .findFirst();
-//
-//        return optionalRuleSetModel.isPresent() ? optionalRuleSetModel.get() : null;
         return dataBaseConnector.findById(id);
     }
 
@@ -51,7 +45,6 @@ public class RuleSetService {
         if (ruleSetModel == null) {
             return false;
         }
-      //  return ruleSetModelSet.remove(ruleSetModel);
         return dataBaseConnector.deleteById(id);
 
     }

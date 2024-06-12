@@ -67,20 +67,11 @@ public class RuleSetController {
     public ResponseEntity<Response> executeRules(@RequestBody List<ExecutionRequest> requests) {
         StringBuilder stringBuilder = new StringBuilder();
         for (ExecutionRequest request : requests) {
-//            stringBuilder.append("ruleID:" + request.getRuleID());
-//            stringBuilder.append(System.getProperty("line.separator"));
-//            stringBuilder.append("ruleName:" + request.getRuleName());
-//            stringBuilder.append(System.getProperty("line.separator"));
             String ruleExecuted = ruleSetService.executeRule(request);
             if (ruleExecuted.equals(RuleSetService.NO_SUCH_RULE)) {
                 return new ResponseEntity<>(new Response<>(false,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
             }
-//            stringBuilder.append("Result of the execution:" + request.getRuleName());
-//            stringBuilder.append(System.getProperty("line.separator"));
               stringBuilder.append(ruleExecuted);
-//            stringBuilder.append(System.getProperty("line.separator"));
-
-
         }
         return new ResponseEntity<>(new Response<>(true,REQUEST_SUCCESFUL,stringBuilder), HttpStatus.OK);
     }

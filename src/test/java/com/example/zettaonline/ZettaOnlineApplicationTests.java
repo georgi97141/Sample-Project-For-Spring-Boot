@@ -3,19 +3,24 @@ package com.example.zettaonline;
 import com.example.zettaonline.restapi.model.*;
 import com.example.zettaonline.restapi.service.RuleSetService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@SpringBootTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ActiveProfiles("test")
 class ZettaOnlineApplicationTests {
-
+    @Autowired
     private RuleSetService ruleSetService;
     private RuleSetModel model;
 
     void loadData() {
-        ruleSetService = new RuleSetService();
         model = new RuleSetModel();
         model.setSetName("model1");
         AbstractRule rule = new ComplexRule(0, "name1", "admin", "salary");

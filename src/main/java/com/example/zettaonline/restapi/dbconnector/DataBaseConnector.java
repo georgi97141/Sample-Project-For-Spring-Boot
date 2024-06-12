@@ -19,7 +19,6 @@ public class DataBaseConnector implements DataBaseConnectorInterface {
     public String execQuery(String quary) {
         try {
             TypedQuery<UserEntity> query = entityManager.createQuery(quary, UserEntity.class);
-            // rather use JDBC or create entities, that is a bit of a bad practice :/
             return query.getResultList().toString();
         } catch (Exception e) {
             throw   new RuntimeException("An unexpected error occurred");

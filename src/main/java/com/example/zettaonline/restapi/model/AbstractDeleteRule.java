@@ -56,8 +56,6 @@ public abstract class AbstractDeleteRule extends AbstractRule {
         // we have sql table
         // return query, not string
         return "DELETE FROM UserEntity u WHERE u." + field + " > :param1 AND u." + field + " < :param2";
-
-        //return "DELETE FROM users WHERE " + field + " > " + parameter1 + " AND " + field + " < " + parameter2 + ";";
     }
 
     @Override
