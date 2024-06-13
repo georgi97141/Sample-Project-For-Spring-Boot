@@ -1,0 +1,8 @@
+Added entities, added new tests, added new documentation.
+
+Docker file here and image of how to run it with settings:
+https://drive.google.com/file/d/1nlq5wBL62qmkB3d8rR1rvy4DOTZmm1wU/view?usp=drive_link
+
+https://drive.google.com/file/d/1D_NSgVR7vWmJpqN5B3HJCZJ6EsbcpzKI/view?usp=drive_link
+
+notice: if you decide to use docker you will need to change the config file. 
