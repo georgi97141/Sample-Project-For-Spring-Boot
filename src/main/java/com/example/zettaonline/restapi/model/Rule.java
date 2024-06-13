@@ -2,7 +2,6 @@ package com.example.zettaonline.restapi.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import jakarta.persistence.Entity;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,

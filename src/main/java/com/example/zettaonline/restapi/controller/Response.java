@@ -1,6 +1,5 @@
 package com.example.zettaonline.restapi.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Response <T> {
     private boolean success;
