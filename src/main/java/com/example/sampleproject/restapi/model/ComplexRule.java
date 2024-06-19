@@ -10,7 +10,8 @@ public class ComplexRule extends AbstractRule {
 
     @Column(name = "privileges")
     private String privileges;
-    private String nationality;
+    @Column(name = "nationality")
+    private String nationality  = "'BG'";
 
     public ComplexRule() {
     }
@@ -19,7 +20,6 @@ public class ComplexRule extends AbstractRule {
         this.id = id;
         this.name = name;
         this.privileges = privileges;
-        this.nationality = "'BG'";
         this.field = field;
     }
 
