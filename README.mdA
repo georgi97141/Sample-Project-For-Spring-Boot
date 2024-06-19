@@ -1,3 +1,5 @@
+Sample project demonstrating the use of ORM, Spring Profiles, PostgreSQL, Docker, Integration, and Unit Testing, RestAPI endpoints, principles of OOP such as Inheritance, Encapsulation, Abstraction etc.
+
 Added entities, added new tests, added new documentation.
 Jar is found in out folder.
  SQL script can be found in: docker file folder
