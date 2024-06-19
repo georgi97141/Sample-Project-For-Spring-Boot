@@ -1,7 +1,7 @@
-package com.example.zettaonline;
+package com.example.sampleproject;
 
-import com.example.zettaonline.restapi.model.*;
-import com.example.zettaonline.restapi.service.RuleSetService;
+import com.example.sampleproject.restapi.model.*;
+import com.example.sampleproject.restapi.service.RuleSetService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import java.util.Set;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ActiveProfiles("test")
-class ZettaOnlineApplicationTests {
+class SampleProjectApplicationTests {
     @Autowired
     private RuleSetService ruleSetService;
     private RuleSetModel model;

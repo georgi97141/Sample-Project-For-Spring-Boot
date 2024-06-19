@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.dbconnector;
+package com.example.sampleproject.restapi.dbconnector;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

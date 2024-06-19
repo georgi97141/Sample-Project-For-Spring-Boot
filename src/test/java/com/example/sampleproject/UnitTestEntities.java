@@ -1,7 +1,7 @@
-package com.example.zettaonline;
-import com.example.zettaonline.restapi.model.AbstractRule;
-import com.example.zettaonline.restapi.model.ComplexRule;
-import com.example.zettaonline.restapi.model.SimpleRule;
+package com.example.sampleproject;
+import com.example.sampleproject.restapi.model.AbstractRule;
+import com.example.sampleproject.restapi.model.ComplexRule;
+import com.example.sampleproject.restapi.model.SimpleRule;
 import org.junit.jupiter.api.Test;
 
 

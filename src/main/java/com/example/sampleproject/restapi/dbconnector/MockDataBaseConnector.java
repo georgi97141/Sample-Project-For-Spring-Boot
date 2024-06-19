@@ -1,6 +1,6 @@
-package com.example.zettaonline.restapi.dbconnector;
+package com.example.sampleproject.restapi.dbconnector;
 
-import com.example.zettaonline.restapi.model.RuleSetModel;
+import com.example.sampleproject.restapi.model.RuleSetModel;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,8 +1,8 @@
-package com.example.zettaonline.restapi.controller;
+package com.example.sampleproject.restapi.controller;
 
-import com.example.zettaonline.restapi.model.ExecutionRequest;
-import com.example.zettaonline.restapi.model.RuleSetModel;
-import com.example.zettaonline.restapi.service.RuleSetService;
+import com.example.sampleproject.restapi.model.ExecutionRequest;
+import com.example.sampleproject.restapi.model.RuleSetModel;
+import com.example.sampleproject.restapi.service.RuleSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

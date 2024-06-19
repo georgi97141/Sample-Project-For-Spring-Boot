@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.model;
+package com.example.sampleproject.restapi.model;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "users", schema = "public")

@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.model;
+package com.example.sampleproject.restapi.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

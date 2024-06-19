@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.sqlchecker;
+package com.example.sampleproject.restapi.sqlchecker;
 
 import java.util.Arrays;
 import java.util.List;

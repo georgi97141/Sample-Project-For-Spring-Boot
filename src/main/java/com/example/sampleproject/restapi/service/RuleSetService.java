@@ -1,11 +1,11 @@
-package com.example.zettaonline.restapi.service;
+package com.example.sampleproject.restapi.service;
 
-import com.example.zettaonline.restapi.dbconnector.DataBaseConnectorInterface;
-import com.example.zettaonline.restapi.model.AbstractRule;
-import com.example.zettaonline.restapi.model.ExecutionRequest;
-import com.example.zettaonline.restapi.model.Rule;
-import com.example.zettaonline.restapi.model.RuleSetModel;
-import com.example.zettaonline.restapi.sqlchecker.SQLChecker;
+import com.example.sampleproject.restapi.dbconnector.DataBaseConnectorInterface;
+import com.example.sampleproject.restapi.model.AbstractRule;
+import com.example.sampleproject.restapi.model.ExecutionRequest;
+import com.example.sampleproject.restapi.model.Rule;
+import com.example.sampleproject.restapi.model.RuleSetModel;
+import com.example.sampleproject.restapi.sqlchecker.SQLChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

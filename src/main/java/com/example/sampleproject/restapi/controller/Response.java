@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.controller;
+package com.example.sampleproject.restapi.controller;
 
 
 public class Response <T> {

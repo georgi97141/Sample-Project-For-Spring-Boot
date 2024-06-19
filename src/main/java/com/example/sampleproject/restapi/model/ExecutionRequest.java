@@ -1,4 +1,4 @@
-package com.example.zettaonline.restapi.model;
+package com.example.sampleproject.restapi.model;
 import java.io.Serializable;
 
 public class ExecutionRequest  implements Serializable{

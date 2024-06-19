@@ -1,10 +1,10 @@
-package com.example.zettaonline;
+package com.example.sampleproject;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.example.zettaonline.restapi.controller.Response;
-import com.example.zettaonline.restapi.model.*;
+import com.example.sampleproject.restapi.controller.Response;
+import com.example.sampleproject.restapi.model.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
