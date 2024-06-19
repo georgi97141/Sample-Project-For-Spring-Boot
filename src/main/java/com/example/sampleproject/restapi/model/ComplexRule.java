@@ -3,21 +3,18 @@ package com.example.sampleproject.restapi.model;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
 @Entity
 @DiscriminatorValue("complex")
 public class ComplexRule extends AbstractRule {
-    private static final long serialVersionUID = 1L;
 
-
-    @Column(name = "name" , unique = true, nullable = false)
-    private String name;
     @Column(name = "privileges")
     private String privileges;
     private String nationality;
-    @Column(name = "field", nullable = false)
-    private String field;
+
     public ComplexRule() {
     }
+
     public ComplexRule(int id, String name, String privileges, String field) {
         this.id = id;
         this.name = name;
@@ -30,23 +27,8 @@ public class ComplexRule extends AbstractRule {
     public String execute(int parameter1, int parameter2) {
         // no string but query return, would be proper
         if (privileges.equals("admin"))
-                return "SELECT u FROM UserEntity u WHERE u." + field + " > "+parameter1+" AND u." + field + " < " +parameter2+" AND u.nationality ="+nationality;
-        return "SELECT u FROM UserEntity u WHERE u." + field + " > "+parameter1+" AND u." + field + " < " +parameter2;
-    }
-
-    @Override
-    public boolean matches(Integer id, String name) {
-        return this.id == id && this.name.equals(name);
-    }
-
-    @Override
-    public String getField() {
-        return field;
-    }
-
-    @Override
-    public void setField(String field) {
-        this.field = field;
+            return "SELECT u FROM UserEntity u WHERE u." + field + " > " + parameter1 + " AND u." + field + " < " + parameter2 + " AND u.nationality =" + nationality;
+        return "SELECT u FROM UserEntity u WHERE u." + field + " > " + parameter1 + " AND u." + field + " < " + parameter2;
     }
 
     public String getNationality() {
@@ -57,32 +39,12 @@ public class ComplexRule extends AbstractRule {
         this.nationality = nationality;
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPrivileges() {
         return privileges;
     }
 
     public void setPrivileges(String privileges) {
         this.privileges = privileges;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

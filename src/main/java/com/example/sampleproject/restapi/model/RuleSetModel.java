@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.io.Serializable;
+
 @Entity
 @Table(name = "rulesetmodel", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "setName"))
 public class RuleSetModel implements Serializable {

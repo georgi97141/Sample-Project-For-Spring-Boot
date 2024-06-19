@@ -1,5 +1,6 @@
 package com.example.sampleproject.restapi.dbconnector;
 
+import com.example.sampleproject.restapi.model.AbstractRule;
 import com.example.sampleproject.restapi.model.RuleSetModel;
 import com.example.sampleproject.restapi.model.UserEntity;
 import jakarta.persistence.EntityManager;
@@ -46,6 +47,9 @@ public class DataBaseConnector implements DataBaseConnectorInterface {
     public boolean deleteById(Integer id) {
         RuleSetModel ruleSetModel = findById(id);
         if (ruleSetModel != null) {
+            for(AbstractRule r: ruleSetModel.getRules()){
+                entityManager.remove(r);
+            }
             entityManager.remove(ruleSetModel);
             return true;
         }

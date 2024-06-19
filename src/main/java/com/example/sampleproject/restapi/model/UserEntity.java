@@ -1,5 +1,7 @@
 package com.example.sampleproject.restapi.model;
+
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "users", schema = "public")
 public class UserEntity {
@@ -13,8 +15,10 @@ public class UserEntity {
     private Long salary = 1000L;
     @Column(name = "nationality", length = 2)
     private String nationality;
+
     public UserEntity() {
     }
+
     public UserEntity(Integer age, String nationality, Long salary) {
         this.age = age;
         this.nationality = nationality;

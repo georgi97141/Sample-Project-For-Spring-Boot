@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "rule_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "rules", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class AbstractRule implements Rule,Serializable {
+public class AbstractRule implements Rule, Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -20,6 +20,11 @@ public class AbstractRule implements Rule,Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     protected int id;
+    @Column(name = "field", nullable = false)
+    protected String field;
+    @Column(name = "name", unique = true, nullable = false)
+    protected String name;
+
     public AbstractRule() {
     }
 
@@ -30,37 +35,38 @@ public class AbstractRule implements Rule,Serializable {
 
     @Override
     public boolean matches(Integer id, String name) {
-        return false;
+        return this.id == id && this.name.equals(name);
     }
 
     @Override
     public String getField() {
-        return "";
+        return this.field;
     }
 
     @Override
     public void setField(String field) {
+        this.field = field;
 
     }
 
     @Override
     public String getName() {
-        return "";
+        return name;
     }
 
     @Override
     public void setName(String field) {
-
+        this.name = field;
     }
 
     @Override
     public int getId() {
-        return 0;
+        return this.id;
     }
 
     @Override
     public void setId(int id) {
-
+        this.id = id;
     }
 
     @Override
@@ -71,6 +77,6 @@ public class AbstractRule implements Rule,Serializable {
 
     @Override
     public void setRuleSet(RuleSetModel ruleSet) {
-            this.ispartof=ruleSet;
+        this.ispartof = ruleSet;
     }
 }

@@ -5,49 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+
 @Entity
 
 public abstract class AbstractDeleteRule extends AbstractRule {
 
-    @Column(name = "name" , unique = true, nullable = false)
-    private String name;
-    @Column(name = "field", nullable = false)
-    private String field;
+
     public AbstractDeleteRule() {
     }
+
     public AbstractDeleteRule(int id, String name, String field) {
         this.id = id;
         this.name = name;
-        this.field = field;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getField() {
-        return field;
-    }
-
-    @Override
-    public void setField(String field) {
         this.field = field;
     }
 
@@ -56,11 +25,6 @@ public abstract class AbstractDeleteRule extends AbstractRule {
         // we have sql table
         // return query, not string
         return "DELETE FROM UserEntity u WHERE u." + field + " > :param1 AND u." + field + " < :param2";
-    }
-
-    @Override
-    public boolean matches(Integer id, String name) {
-        return this.id == id && this.name.equals(name);
     }
 
     @Override
@@ -75,14 +39,4 @@ public abstract class AbstractDeleteRule extends AbstractRule {
         return Objects.hash(name, field);
     }
 
-    @Override
-    @JsonIgnore
-    public RuleSetModel getRuleSet() {
-        return ispartof;
-    }
-
-    @Override
-    public void setRuleSet(RuleSetModel ruleSet) {
-        this.ispartof=ruleSet;
-    }
 }

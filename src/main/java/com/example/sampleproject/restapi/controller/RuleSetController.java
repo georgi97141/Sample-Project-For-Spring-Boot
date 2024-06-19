@@ -60,7 +60,7 @@ public class RuleSetController {
         boolean deleted = ruleSetService.removeRuleSetModelByID(id);
         return deleted ?
                 new ResponseEntity<>(new Response<>(true,RULESET_DELETED,null), HttpStatus.OK)
-                : new ResponseEntity<>(new Response<>(true,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(new Response<>(false,RULESET_NOT_FOUND,null), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/execute")
