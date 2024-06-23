@@ -8,4 +8,17 @@ https://drive.google.com/file/d/1nlq5wBL62qmkB3d8rR1rvy4DOTZmm1wU/view?usp=drive
 
 https://drive.google.com/file/d/1D_NSgVR7vWmJpqN5B3HJCZJ6EsbcpzKI/view?usp=drive_link
 
-notice: if you decide to use docker you will need to change the config file. 
+Instructions:
+Use for making the docker container image do the following in the docker file folder:
+Open CMD, Navigate to folder, run this:
+docker build -t your_image_name .
+Run the docker image.
+
+Use those for setting the env variables for windows. Use your credentials and URL.
+setx POSTGRES_USERNAME postgres
+setx POSTGRES_PASSWORD 123456
+setx POSTGRES_URL jdbc:postgresql://localhost:5432/userbase
+
+Open the "out" folder and run the jar.
+
+
