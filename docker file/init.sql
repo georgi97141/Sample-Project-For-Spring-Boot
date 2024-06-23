@@ -61,3 +61,12 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.rules
     OWNER to postgres;
+
+
+
+INSERT INTO public.users (age, nationality, salary) VALUES
+(28, 'BG', 5500),
+(32, 'FR', 7200),
+(27, 'JP', 4900),
+(45, 'BG', 8500),
+(29, 'ZA', 6200);
