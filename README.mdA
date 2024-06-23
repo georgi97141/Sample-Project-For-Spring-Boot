@@ -21,4 +21,4 @@ setx POSTGRES_URL jdbc:postgresql://localhost:5432/userbase
 
 Open the "out" folder and run the jar.
 
-
+Check documentation.docx for some sample requests.
